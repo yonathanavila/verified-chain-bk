@@ -3,6 +3,10 @@ import dotenv from "dotenv"
 import fs from "fs"
 import cors from "cors"
 import express from "express"
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 
 const app = express()
 dotenv.config();
@@ -69,14 +73,21 @@ async function relaySetHello(hello, helloSetter, signature) {
     });
 }
 
+async function verifiedProof() {
+    const { stdout, stderr } = await exec('cd ezkl && dir');
+    console.log('Output was:\n', { stdout, stderr });
+    return { stdout, stderr };
+}
+
 //http://localhost:8080/verified-chain
 app.get('/verified-chain', (req, res) => {
     var hello = req.query["hello"]
     var helloSetter = req.query["helloSetter"]
     var message = helloSetter + " setted hello to " + " " + hello
+    var list = verifiedProof()
     res.setHeader('Content-Type', 'application/json');
     res.send({
-        "message": message
+        "message": list
     })
 })
 initAPI()

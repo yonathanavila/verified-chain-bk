@@ -5,6 +5,7 @@
   "type": "module",
   "main": "backend.js",
   "scripts": {
+    "start": "nodemon backend.js",
     "test": "echo \"Not test yet\" && exit 1"
   },
   "author": "Yonathan Cruz",
@@ -13,6 +14,7 @@
     "@alch/alchemy-web3": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "nodemon": "^2.0.21"
   }
 }
