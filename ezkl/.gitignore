@@ -1,0 +1,11 @@
+target
+data
+*.sol
+*.pf
+*.vk
+*.code
+*.params
+*~
+\#*\#
+.DS_Store
+*_forward.json
