@@ -5,6 +5,7 @@ import cors from "cors"
 import express from "express"
 import { createRequire } from 'module';
 import { getWeb3, getContract } from './utils/web3.js';
+import { hashMessage } from "./utils/hashMessaje.js"
 
 const require = createRequire(import.meta.url);
 const util = require('util');
@@ -12,16 +13,16 @@ const exec = util.promisify(require('child_process').exec);
 
 const app = express()
 dotenv.config();
-const { GOERLI_RPC_URL, PRIVATE_KEY } = process.env;
+const { SCROLL_ALPHA_RPC_URL, PRIVATE_KEY } = process.env;
 const CONTRACT_ADDRESS = "0xD0ce6D448227F2C5239116Be26a1bB91BfB1c326"
 const JSON_CONTRACT_PATH = "./json_abi/Contract.json"
 const PORT = 8080
-let provider = "null";
-let contract = "null";
+let provider = "";
+let contract = "";
 
 const loadContract = async (data) => {
     // Load contract
-    provider = getWeb3(GOERLI_RPC_URL);
+    provider = getWeb3(SCROLL_ALPHA_RPC_URL);
     const abi = JSON.parse(data);
     contract = getContract(provider, abi, CONTRACT_ADDRESS);
 }
@@ -48,7 +49,6 @@ async function initAPI() {
 
 async function relaySetProof(hello) {
     try {
-        var hello = "b221d9dbb083a7f33428d7c2a3c3198ae925614d70210e28716ccaa7cd4ddb79"
         // Create account from key
         const account = provider.eth.accounts.privateKeyToAccount(PRIVATE_KEY);
 
@@ -60,7 +60,7 @@ async function relaySetProof(hello) {
         provider.eth.defaultAccount = account.address;
         console.log(provider.eth.defaultAccount)
         // Create transaction
-        const txCreateProof = contract.methods.create_proof(`0x${hello}`);
+        const txCreateProof = contract.methods.create_proof(hello);
 
         // Estimate gas
         const [gasPrice, gasCost1] = await Promise.all([
@@ -92,9 +92,10 @@ async function verifiedProof() {
 
     // Verify proof
     const verifyContent = fs.readFileSync('./ezkl/1l_relu.pf').toString()
-
+    const message = hashMessage(verifyContent)
+    console.log(message)
     // Send proof to relayer to verify and store on chain 
-    await relaySetProof(verifyContent);
+    await relaySetProof(message);
 
     return { stdout, stderr };
 }
