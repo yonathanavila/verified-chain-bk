@@ -18,4 +18,19 @@ web3.js is a collection of libraries that allow you to interact with the remote 
 
 Using to ran an publicly available neural network on some private data and produce an output that we can use to verify the proof in Scroll zkEVM
 
+![alt text](./docs/image/neuronal.png)
+
+then we can use the output to generate the proof
+
+![alt text](./docs/image/iaOutput.jpg)
+
+then we can use cartography to encrypt the proof
+
+![alt text](./docs/image/encrypt.jpg)
+
+now we can send the proof encrypted to Scroll L2 to verify it
+
+![alt text](./docs/image/proof.jpg)
+
+# https://blockscout.scroll.io/address/0x7897e2050b129DC4934fe815807FC0Fe1C291194
 
