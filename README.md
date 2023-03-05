@@ -1,51 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with
-[`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ETHDenver Hackathon Notes - Backend
 
-## Getting Started
+# Important Packages
 
-First, run the development server:
+crypto-js is a library to encrypt the generated proof in SHA256 format to manage it in privacy mode
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+ethereum-cryptography to convert to bytes the IA output in an utf8ToBytes array format
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the
-result.
+ezkl is a library and command-line tool for doing inference for deep learning models and other computational graphs in a zk-snark. It enables the following workflow:
+Define a computational graph, for instance a neural network (but really any arbitrary set of operations), as you would normally in pytorch or tensorflow.
+https://github.com/zkonduit/ezkl
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates
-as you edit the file.
+web3.js is a collection of libraries that allow you to interact with the remote zkEVM l2 in Scroll using HTTPs calls.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on
-[http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint
-can be edited in `pages/api/hello.js`.
+# Frontend Calls
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated
-as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React
-pages.
+## http://localhost:8080/verified-chain?helloSetter=0x18747BE67c5886881075136eb678cEADaf808028&hello=hola&signature=0x6903cb647fb3d47b91e8aecc8adc686466557d5edf96814e2b21c745f455a8502e895e696c59f8d65fd9bb57e4f202d45bb6a40c07bc8fd283d666f31264ce411b
 
-This project uses
-[`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to
-automatically optimize and load Inter, a custom Google Font.
+Using to ran an publicly available neural network on some private data and produce an output that we can use to verify the proof in Scroll zkEVM
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features
-  and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out
-[the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback
-and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the
-[Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
-from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment)
-for more details.
